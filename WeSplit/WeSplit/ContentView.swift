@@ -1,23 +1,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var count: Int = 0
+    
     var body: some View {
-        NavigationStack {
-            Form {
-                Section {
-                    Text("Hello World!")
-                    Text("Hello World!")
-                    Text("Hello World!")
-                }
-                
-                Section {
-                    Text("Hello World 2!")
-                    Text("Hello World 2!")
-                    Text("Hello World 2!")
-                }
-            }
-            .navigationTitle("WeSplit")
-            .navigationBarTitleDisplayMode(.large)
+        Button("Count: \(count)"){
+            count += 1
         }
     }
 }
