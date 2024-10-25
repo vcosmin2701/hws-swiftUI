@@ -1,17 +1,16 @@
 import SwiftUI
 
-enum TemperatureType {
-    case celsius, fahrenheit, kelvin
-}
-
 struct ContentView: View {
     @State private var inputType: TemperatureType = .celsius
     @State private var outputType: TemperatureType = .fahrenheit
     @State private var inputValue = 0.0
-    @State private var outputValue = 0.0
+    @FocusState private var hideKeyboard: Bool
     
     let units: [TemperatureType] = [.celsius, .fahrenheit, .kelvin]
     
+    var outputValue: Double {
+        inputValue * 100
+    }
     
     var body: some View {
         NavigationStack {
@@ -33,11 +32,24 @@ struct ContentView: View {
                 }
                 
                 Section("Initial value") {
-                    Text("Value: ")
+                    TextField(
+                        "Input value to convert",
+                        value: $inputValue,
+                        format: .number
+                    )
+                    .keyboardType(.decimalPad)
+                    .focused($hideKeyboard)
+                    .toolbar {
+                        if hideKeyboard {
+                            Button("Done") {
+                                hideKeyboard = false
+                            }
+                        }
+                    }
                 }
                 
                 Section("Conversion value") {
-                    Text("Value:")
+                    Text(outputValue, format: .number.rounded(increment: 0.01))
                 }
             }
             .navigationTitle("Conversion App")
