@@ -8,8 +8,10 @@ struct ContentView: View {
     
     let units: [TemperatureType] = [.celsius, .fahrenheit, .kelvin]
     
+    let convertor = Convertor()
+    
     var outputValue: Double {
-        inputValue * 100
+        convertor.convert(from: inputType, to: outputType, value: inputValue)
     }
     
     var body: some View {
