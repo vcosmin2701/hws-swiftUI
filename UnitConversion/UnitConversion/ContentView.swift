@@ -31,7 +31,7 @@ struct ContentView: View {
                 Section("Input type") {
                     Picker("From", selection: $inputType) {
                         ForEach(units,  id: \.self) { unit in
-                            Text("\(unit)")
+                            Text("\(unit)".capitalized)
                         }
                     }
                 }
@@ -39,7 +39,7 @@ struct ContentView: View {
                 Section("Output type") {
                     Picker("To", selection: $outputType) {
                         ForEach(units, id: \.self) { unit in
-                            Text("\(unit)")
+                            Text("\(unit)".capitalized)
                         }
                     }
                 }
@@ -65,7 +65,7 @@ struct ContentView: View {
                     Text("\(outputValue, format: .number.rounded(increment: 0.01)) \(tempSign)")
                 }
             }
-            .navigationTitle("Conversion App")
+            .navigationTitle("Converter ⛅️")
         }
     }
 }
