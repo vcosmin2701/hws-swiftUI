@@ -14,6 +14,17 @@ struct ContentView: View {
         convertor.convert(from: inputType, to: outputType, value: inputValue)
     }
     
+    var tempSign: String {
+        switch outputType {
+        case .celsius:
+            "°C"
+        case .fahrenheit:
+            "°F"
+        case .kelvin:
+            "°K"
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -51,7 +62,7 @@ struct ContentView: View {
                 }
                 
                 Section("Conversion value") {
-                    Text(outputValue, format: .number.rounded(increment: 0.01))
+                    Text("\(outputValue, format: .number.rounded(increment: 0.01)) \(tempSign)")
                 }
             }
             .navigationTitle("Conversion App")
