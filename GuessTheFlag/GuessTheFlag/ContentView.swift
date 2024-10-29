@@ -2,19 +2,35 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        LinearGradient(stops: [
-            Gradient.Stop(color: .white, location: 0.45),
-            Gradient.Stop(color: .black, location: 0.55)
-        ], startPoint: .top, endPoint: .bottom)
-        
-        RadialGradient(colors: [.blue, .black], center: .center, startRadius: 20, endRadius: 200)
-        
-        AngularGradient(colors: [.red, .yellow, .green, .blue, .purple, .red], center: .center)
-        
-        Text("Your content")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .foregroundStyle(.white)
-            .background(.indigo.gradient)
+        VStack {
+            Button("Button1") { }
+                .buttonStyle(.bordered)
+            
+            Button("Button 2", role: .destructive) { }
+                .buttonStyle(.bordered)
+            
+            Button("Button 3") { }
+                .buttonStyle(.borderedProminent)
+            
+            Button("Button 4", role: .destructive) { }
+                .buttonStyle(.borderedProminent)
+                .tint(.indigo)
+            
+            Button("Edit", systemImage: "pencil.circle") {
+                print("Button was pressed!")
+            }
+            
+            Button {
+                print("Button was tapped")
+            } label: {
+                Label("Edit 2", systemImage: "pencil") // better than HStack in this case
+            }
+            
+            // Image(decorative: "singapore") -> decorative for screen readers
+            Image(systemName: "pencil.circle")
+                .foregroundStyle(.red)
+                .font(.largeTitle)
+        }
     }
 }
 
