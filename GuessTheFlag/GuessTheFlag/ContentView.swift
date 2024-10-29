@@ -2,25 +2,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ZStack {
-            // Color. : .primary, .secondary -> semantic colors
-            // Custom color: Color(red: 1, green: 0.8, blue: 0)
-            
-            // Color.yellow // will be treated as a view, whole content will be red
-                //.frame(width: 200, height: 200)
-                // .frame(minWidth: 200, maxWidth: .infinity, maxHeight: 200)
-            VStack(spacing: 0) {
-                Color.red
-                Color.blue
-            }
-            
-            Text("Your content")
-                .foregroundStyle(.secondary)
-                .padding(50)
-                .background(.ultraThinMaterial) // vibrancy
-            
-        }
-        .ignoresSafeArea()
+        LinearGradient(stops: [
+            Gradient.Stop(color: .white, location: 0.45),
+            Gradient.Stop(color: .black, location: 0.55)
+        ], startPoint: .top, endPoint: .bottom)
+        
+        RadialGradient(colors: [.blue, .black], center: .center, startRadius: 20, endRadius: 200)
+        
+        AngularGradient(colors: [.red, .yellow, .green, .blue, .purple, .red], center: .center)
+        
+        Text("Your content")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .foregroundStyle(.white)
+            .background(.indigo.gradient)
     }
 }
 
