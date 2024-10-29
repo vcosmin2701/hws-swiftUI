@@ -9,6 +9,9 @@ struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
     
+    @State private var questionCounter = 0
+    @State private var endGame = false
+    
     var body: some View {
         ZStack {
             RadialGradient(stops: [
@@ -59,6 +62,11 @@ struct ContentView: View {
                 Spacer()
             }
             .padding()
+            .alert("Game Over", isPresented: $endGame) {
+                Button("Restart Game", role: .destructive, action: restartGame)
+            } message: {
+                Text("You reached the end of the game! Final score: \(score)")
+            }
             
         }.alert(scoreTitle, isPresented: $showingScore){
             Button("Continue", action: askQuestion)
@@ -79,8 +87,22 @@ struct ContentView: View {
     }
     
     func askQuestion() {
+        if questionCounter >= 8 {
+            endGame = true
+        } else {
+            countries.shuffle()
+            correctAnswer = Int.random(in: 0..<3)
+            questionCounter += 1
+        }
+        
+    }
+    
+    func restartGame(){
+        score = 0
+        questionCounter = 0
         countries.shuffle()
         correctAnswer = Int.random(in: 0..<3)
+        endGame = false
     }
 }
 
