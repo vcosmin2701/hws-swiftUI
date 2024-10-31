@@ -24,8 +24,9 @@ struct ContentView: View {
                 Spacer()
                 
                 Text("Guess the Flag")
-                    .font(.largeTitle.bold())
-                    .foregroundStyle(.white)
+//                    .font(.largeTitle.bold())
+//                    .foregroundStyle(.white)
+                    .largeBlueTitle()
                 
                 VStack(spacing: 15) {
                     VStack {
@@ -114,6 +115,21 @@ struct FlagImage: View {
         Image(country)
             .clipShape(.capsule)
             .shadow(radius: 5)
+    }
+}
+
+
+struct CustomTitle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundStyle(.blue)
+    }
+}
+
+extension View {
+    func largeBlueTitle() -> some View {
+        modifier(CustomTitle())
     }
 }
 
