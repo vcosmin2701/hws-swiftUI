@@ -1,25 +1,25 @@
 import SwiftUI
 
-struct ContentView: View {
-    var motto1: some View {
-        Text("Apple Team is the best")
-    }
-    
-    let motto2 = Text("Agile Freaks")
-    
-    @ViewBuilder var platforms: some View {
-        Text("iOS")
-        Text("macOS")
-    }
+struct CapsuleText: View {
+    var text: String
     
     var body: some View {
-        VStack {
-            motto1
-                .foregroundStyle(.red)
-            motto2
-                .foregroundStyle(.blue)
-        }
+        Text(text)
+            .font(.largeTitle)
+            .padding()
+            .foregroundStyle(.white)
+            .background(.blue)
+            .clipShape(.capsule)
     }
+}
+
+struct ContentView: View {
+    var body: some View {
+            VStack(spacing: 10) {
+                CapsuleText(text: "First")
+                CapsuleText(text: "Second")
+            }
+        }
 }
 
 #Preview {
