@@ -1,15 +1,27 @@
 import SwiftUI
 
 struct GameChoice: View {
-    var text: String
+    private var choices = ["newspaper", "mountain.2", "scissors"]
+    var currentChoice: ChoiceType
     
     private var gradient = Gradient(colors: [
         Color(.blue),
         Color(.indigo)
     ])
     
-    init(_ text: String) {
-        self.text = text
+    private var imageName: String {
+        switch currentChoice {
+        case .rock:
+            "mountain.2"
+        case .paper:
+            "newspaper"
+        case .scissors:
+            "scissors"
+        }
+    }
+    
+    init(_ choice: ChoiceType){
+        self.currentChoice = choice
     }
     
     var body: some View {
@@ -27,7 +39,8 @@ struct GameChoice: View {
                         )
                     )
                     .frame(width: 100, height: 100)
-                Image(systemName: text)
+                
+                Image(systemName: imageName)
             }
         }
         .font(.system(size: 30))

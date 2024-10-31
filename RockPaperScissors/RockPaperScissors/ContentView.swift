@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    var choices = ["newspaper", "mountain.2", "scissors"]
+    
+    var choices: [ChoiceType] = [.rock, .paper, .scissors]
     
     var body: some View {
         VStack{
@@ -10,12 +11,14 @@ struct ContentView: View {
                 
                 Text("Computer")
             }
+            .padding()
             
-            GameChoice(choices[0])
+            GameChoice(.rock)
+            
             
             HStack(spacing: 10){
-                ForEach(0..<3){
-                    GameChoice(choices[$0])
+                ForEach(choices, id: \.self){ choice in
+                    GameChoice(choice)
                 }
             }
         }
