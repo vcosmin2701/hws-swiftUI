@@ -8,6 +8,17 @@ struct ContentView: View {
             useRedText.toggle()
         }
         .foregroundStyle(useRedText ? .red : .blue)
+        
+        VStack {
+            Text("Sometext")
+                .blur(radius: 2.0)
+            Text("Sometext")
+            Text("Sometext")
+            Text("Sometext")
+            Text("Sometext")
+        }
+        .blur(radius: 10.0)
+        
     }
 }
 
