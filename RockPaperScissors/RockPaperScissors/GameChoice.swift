@@ -12,11 +12,11 @@ struct GameChoice: View {
     private var imageName: String {
         switch currentChoice {
         case .rock:
-            "mountain.2"
+            "🪨"
         case .paper:
-            "newspaper"
+            "📄"
         case .scissors:
-            "scissors"
+            "✂️"
         }
     }
     
@@ -40,7 +40,8 @@ struct GameChoice: View {
                     )
                     .frame(width: 100, height: 100)
                 
-                Image(systemName: imageName)
+                Text(imageName)
+                    .font(.largeTitle)
             }
         }
         .font(.system(size: 30))

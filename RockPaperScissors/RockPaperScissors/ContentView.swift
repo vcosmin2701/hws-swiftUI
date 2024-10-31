@@ -7,13 +7,17 @@ struct ContentView: View {
     var body: some View {
         VStack{
             VStack {
-                Text("Title of the game")
+                Text("🪨Rock 📄Paper ✂️Scissors")
+                    .font(.title)
                 
-                Text("Computer")
+                Text("Computer's choice")
+                    .font(.title)
+                    .padding(.top, 50)
             }
             .padding()
             
             GameChoice(.rock)
+                .padding(100)
             
             
             HStack(spacing: 10){
@@ -21,6 +25,7 @@ struct ContentView: View {
                     GameChoice(choice)
                 }
             }
+            .padding(.bottom, 100)
         }
     }
 }
