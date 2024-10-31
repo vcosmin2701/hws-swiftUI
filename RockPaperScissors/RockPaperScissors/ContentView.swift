@@ -1,21 +1,24 @@
-//
-//  ContentView.swift
-//  RockPaperScissors
-//
-//  Created by Vladut Cosmin on 31.10.2024.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    var choices = ["newspaper", "mountain.2", "scissors"]
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack{
+            VStack {
+                Text("Title of the game")
+                
+                Text("Computer")
+            }
+            
+            Image(systemName: choices[0])
+            
+            HStack(spacing: 20){
+                Image(systemName: choices[0])
+                Image(systemName: choices[1])
+                Image(systemName: choices[2])
+            }
         }
-        .padding()
     }
 }
 
