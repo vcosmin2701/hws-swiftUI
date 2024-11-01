@@ -10,13 +10,23 @@ struct ContentView: View {
     @State private var alertMessage = ""
     @State private var showingAlert = false
     
+    @State private var resultMessage = ""
+    
+    private var calculatedTime: String {
+        if let result = calculateBedtime() {
+            result.formatted(date: .omitted, time: .shortened)
+        }else{
+            "Error"
+        }
+    }
+    
     static var defaultWakeTime: Date {
         var components = DateComponents()
         components.hour = 7
         components.minute = 0
         return Calendar.current.date(from: components) ?? .now
     }
-    
+
     
     private var pluralCoffee: String {
         coffeeAmount > 1 ? "cups" : "cup"
@@ -41,24 +51,21 @@ struct ContentView: View {
                     }
                 }
 
-                
                 Section("Daily Coffee Intake"){
                     Stepper("\(coffeeAmount) \(pluralCoffee)", value: $coffeeAmount, in: 1...20)
                 }
+                
+                Section("Your ideal time to go to sleep"){
+                    Text("\(calculatedTime)")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
             }
             .navigationTitle("BetterRest")
-            .toolbar {
-                Button("Calculate", action: calculateBedtime)
-            }
-            .alert(alertTitle, isPresented: $showingAlert){
-                Button("OK") {}
-            } message: {
-                Text(alertMessage)
-            }
         }
     }
     
-    func calculateBedtime() {
+    func calculateBedtime() -> Date? {
+        var result: Date
         do {
             let config = MLModelConfiguration()
             let model = try SleepCalculator(configuration: config)
@@ -71,15 +78,13 @@ struct ContentView: View {
             
             let sleepTime = wakeUp - prediction.actualSleep
             
-            alertTitle = "Your ideal bedtime is.."
-            alertMessage = sleepTime.formatted(date: .omitted, time: .shortened)
+            result = sleepTime
+            return result
             
         } catch {
-            alertTitle = "Error"
-            alertMessage = "Sorry, there was a problem calculating your bedtime"
+            resultMessage = "Error trying to predict the time."
+            return nil
         }
-        
-        showingAlert = true
     }
 }
 
