@@ -33,21 +33,18 @@ struct ContentView: View {
                         .labelsHidden()
                 }
                 
-                Section("Desired amount") {
-                    Text("Desired amount of sleep")
-                        .font(.headline)
-                    
-                    Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
+                Section("Desired amount of sleep") {
+                    Picker("Hours", selection: $sleepAmount) {
+                        ForEach(Array(stride(from: 4.0, through: 12.0, by: 1.0)), id: \.self) { hour in
+                            Text("\(hour, specifier: "%.0f") hours")
+                        }
+                    }
                 }
+
                 
-                Section("Coffee Intake"){
-                    Text("Daily coffee intake")
-                        .font(.headline)
-                    
+                Section("Daily Coffee Intake"){
                     Stepper("\(coffeeAmount) \(pluralCoffee)", value: $coffeeAmount, in: 1...20)
                 }
-                
-                
             }
             .navigationTitle("BetterRest")
             .toolbar {
