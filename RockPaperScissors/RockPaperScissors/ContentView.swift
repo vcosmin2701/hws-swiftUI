@@ -29,10 +29,6 @@ struct ContentView: View {
                 }
             }
             
-            Text(resultMessage)
-                .font(.title2)
-                .padding()
-            
             HStack(spacing: 20) {
                 ForEach(choices, id: \.self) { choice in
                     GameChoice(choice.rawValue)
