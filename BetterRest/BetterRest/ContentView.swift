@@ -25,7 +25,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             Form {
-                VStack(alignment: .leading) {
+                Section("Sleep amount") {
                     Text("When do you want to wake up ?")
                         .font(.headline)
                     
@@ -33,14 +33,14 @@ struct ContentView: View {
                         .labelsHidden()
                 }
                 
-                VStack(alignment: .leading) {
+                Section("Desired amount") {
                     Text("Desired amount of sleep")
                         .font(.headline)
                     
                     Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
                 }
                 
-                VStack(alignment: .leading){
+                Section("Coffee Intake"){
                     Text("Daily coffee intake")
                         .font(.headline)
                     
