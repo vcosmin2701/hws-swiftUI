@@ -4,7 +4,7 @@ import Foundation
 struct ExpenseList: View {
     @State private var showingAddExpense = false
     
-    var expenses = Expenses()
+    @ObservedObject var expenses = Expenses()
     
     func removeItems(at offsets: IndexSet) {
         expenses.items.remove(atOffsets: offsets)
@@ -14,8 +14,10 @@ struct ExpenseList: View {
         NavigationStack {
             List {
                 Section("Personal") {
-                    ForEach(expenses.items.filter { $0.type == "Personal" }) { item in
-                        ExpenseListItem(item: item)
+                    ForEach(expenses.items) { item in
+                        if item.type == "Personal"{
+                            ExpenseListItem(item: item)
+                        }
                     }
                     .onDelete { offsets in
                         removeItems(at: offsets)
@@ -23,8 +25,10 @@ struct ExpenseList: View {
                 }
                 
                 Section("Business") {
-                    ForEach(expenses.items.filter { $0.type == "Business" }) { item in
-                        ExpenseListItem(item: item)
+                    ForEach(expenses.items) { item in
+                        if item.type == "Business" {
+                            ExpenseListItem(item: item)
+                        }
                     }
                     .onDelete { offsets in
                         removeItems(at: offsets)

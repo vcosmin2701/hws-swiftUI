@@ -8,7 +8,7 @@ struct AddView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    var expenses: Expenses
+    @ObservedObject var expenses: Expenses
     
     let types = ["Business", "Personal"]
     let currencies = ["RON", "EUR", "USD"]
