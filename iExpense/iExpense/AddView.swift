@@ -3,6 +3,7 @@ import SwiftUI
 struct AddView: View {
     @State private var name = ""
     @State private var type = "Personal"
+    @State private var currentCurrency = "RON"
     @State private var amount = 0.0
     
     @Environment(\.dismiss) var dismiss
@@ -10,6 +11,7 @@ struct AddView: View {
     var expenses: Expenses
     
     let types = ["Business", "Personal"]
+    let currencies = ["RON", "EUR", "USD"]
     
     
     var body: some View {
@@ -23,7 +25,13 @@ struct AddView: View {
                     }
                 }
                 
-                TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                Picker("Currency", selection: $currentCurrency) {
+                    ForEach(currencies, id: \.self) {
+                        Text($0)
+                    }
+                }
+                
+                TextField("Amount", value: $amount, format: .currency(code: currentCurrency))
                     .keyboardType(.decimalPad)
             }
             .navigationTitle("Add new expense")
