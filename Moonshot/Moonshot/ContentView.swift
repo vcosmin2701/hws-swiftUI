@@ -13,28 +13,58 @@ struct CustomText: View {
     }
 }
 
+// conforms Codable
+struct Company: Codable {
+    let company_name: String
+    let address: Address
+}
+
+struct Address: Codable {
+    let city: String
+    let country: String
+}
+
 struct ContentView: View {
     var body: some View {
-//        ScrollView(.horizontal) {
-//            LazyHStack(spacing: 10) {
-//                ForEach(0..<100) {
-//                    CustomText(text: "Item \($0)")
-//                        .font(.title)
-//                }
-//            }
-//            .frame(maxWidth: .infinity)
-//        }
+        //        ScrollView(.horizontal) {
+        //            LazyHStack(spacing: 10) {
+        //                ForEach(0..<100) {
+        //                    CustomText(text: "Item \($0)")
+        //                        .font(.title)
+        //                }
+        //            }
+        //            .frame(maxWidth: .infinity)
+        //        }
         
         NavigationStack{
-            List(0..<100) { row in
+            List(0..<5) { row in
                 NavigationLink("Row \(row)"){
                     Text("Detail \(row)")
                 }
             }
             .navigationTitle("SwiftUI")
+            
+            Button("DECODE JSON") {
+                let input = """
+                                {
+                                    "company_name": "Agile Freaks",
+                                    "address": {
+                                        "city": "Sibiu",
+                                        "country": "Romania"
+                                    }
+                                }
+                                """
+                
+                let data = Data(input.utf8)
+                let decoder = JSONDecoder()
+                
+                if let company = try? decoder.decode(Company.self, from: data) {
+                    print(company.company_name)
+                } else {
+                    print("Failed to decode JSON")
+                }
+            }
         }
-        
-        
     }
 }
 
