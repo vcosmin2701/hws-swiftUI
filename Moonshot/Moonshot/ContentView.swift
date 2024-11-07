@@ -25,6 +25,12 @@ struct Address: Codable {
 }
 
 struct ContentView: View {
+    let layout = [
+//        GridItem(.fixed(80)),
+//        GridItem(.fixed(80)),
+//        GridItem(.fixed(80))
+        GridItem(.adaptive(minimum: 80, maximum: 120))
+    ]
     var body: some View {
         //        ScrollView(.horizontal) {
         //            LazyHStack(spacing: 10) {
@@ -62,6 +68,14 @@ struct ContentView: View {
                     print(company.company_name)
                 } else {
                     print("Failed to decode JSON")
+                }
+            }
+            
+            ScrollView(){
+                LazyVGrid(columns: layout) {
+                    ForEach(0..<100) {
+                        Text("Item \($0)")
+                    }
                 }
             }
         }
