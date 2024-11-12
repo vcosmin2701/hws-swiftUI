@@ -1,37 +1,43 @@
 import SwiftUI
 
-struct ContentView: View {
+struct DetailView: View {
+    var number: Int
+    @Binding var path: [Int]
     
-    // navigation path = type eraser, is not
-    // exposing what type the element inside is
-    @State private var path = NavigationPath()
+    // or
+    // @Binding var path: NavigationPath
+    
+    var body: some View {
+        NavigationLink("Go to random number", value: Int.random(in: 1...1000))
+            .navigationTitle("Number: \(number)")
+            .toolbar {
+                Button("Home") {
+                    path.removeAll()
+                    
+                    // or
+                    
+                    // path = NavigationPath()
+                }
+            }
+    }
+}
+
+struct ContentView: View {
+    // in this case if we want to go to the
+    // very first view, we can removeAll()
+    // because is an array of ints
+    @State private var path = [Int]()
+    
+    // or
+    
+    // @State private var path = NavigationPath()
     
     var body: some View {
         NavigationStack(path: $path){
-            List {
-                ForEach(0..<5) { i in
-                    NavigationLink("Select Number: \(i)", value: i)
+            DetailView(number: 0, path: $path)
+                .navigationDestination(for: Int.self) { i in
+                    DetailView(number: i, path: $path)
                 }
-                
-                ForEach(0..<5) { i in
-                    NavigationLink("Select String \(i)", value: String(i))
-                }
-            }
-            .toolbar {
-                Button("Push 556") {
-                    path.append(556)
-                }
-                
-                Button("Push Hello") {
-                    path.append("Hello")
-                }
-            }
-            .navigationDestination(for: Int.self) { selection in
-                Text("You selected the number: \(selection)")
-            }
-            .navigationDestination(for: String.self) { selection in
-                Text("You selected the string \(selection)")
-            }
         }
     }
 }
