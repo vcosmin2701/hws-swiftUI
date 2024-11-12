@@ -4,6 +4,12 @@ struct MissionView: View {
     let mission: Mission
     let crew: [CrewMember]
     
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }()
+    
     init(mission: Mission, astronauts: [String: Astronaut]) {
         self.mission = mission
         self.crew = mission.crew.map { member in
@@ -25,6 +31,12 @@ struct MissionView: View {
                         width, axis in width * 0.6
                     }
                     .padding(.top)
+                
+                if let launchDate = mission.launchDate {
+                    Text("Mission Date: \(dateFormatter.string(from: launchDate))")
+                        .font(.subheadline)
+                        .padding(.top, 5)
+                }
                 
                 VStack(alignment: .leading) {
                     Text("Mission Highglights")
@@ -59,7 +71,7 @@ struct MissionView: View {
                                             Capsule()
                                                 .strokeBorder(.white, lineWidth: 1)
                                         )
-
+                                    
                                     VStack(alignment: .leading) {
                                         Text(crewMember.astronaut.name)
                                             .foregroundStyle(.white)
